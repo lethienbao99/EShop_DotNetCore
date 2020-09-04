@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace EShop_DotNetCore
+namespace EShop_DotNetCore.WEB
 {
     public class Program
     {

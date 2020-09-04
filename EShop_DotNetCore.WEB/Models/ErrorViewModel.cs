@@ -1,6 +1,6 @@
 using System;
 
-namespace EShop_DotNetCore.Models
+namespace EShop_DotNetCore.WEB.Models
 {
     public class ErrorViewModel
     {
