@@ -27,7 +27,7 @@ namespace EShop_DotNetCore.DAL.EF
             modelBuilder.ApplyConfiguration(new CartConfiguration());
 
             //Data Seeding.
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
 
 
             //base.OnModelCreating(modelBuilder);
