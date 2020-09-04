@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EShop_DotNetCore.BLL\EShop_DotNetCore.BLL.csproj" />
+    <ProjectReference Include="..\EShop_DotNetCore.COMMON\EShop_DotNetCore.COMMON.csproj" />
+    <ProjectReference Include="..\EShop_DotNetCore.DAL\EShop_DotNetCore.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
