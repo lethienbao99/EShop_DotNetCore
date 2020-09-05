@@ -2,17 +2,25 @@
 using EShop_DotNetCore.DAL.DataSeeding;
 using EShop_DotNetCore.DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace EShop_DotNetCore.DAL.EF
 {
     public class EShopDBContext : DbContext
     {
-        public EShopDBContext(DbContextOptions options) : base(options)
+        public EShopDBContext() {}
+        public EShopDBContext(DbContextOptions<EShopDBContext> options) : base(options) {}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            // READ DATABASE FROM MSSQL SERVER
+            if (!optionsBuilder.IsConfigured)
+            {
+            optionsBuilder.UseSqlServer("Server=.;Database=EShopDB_DNC;Trusted_Connection=True;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,8 +37,8 @@ namespace EShop_DotNetCore.DAL.EF
             //Data Seeding.
             modelBuilder.Seed();
 
-
-            //base.OnModelCreating(modelBuilder);
+            //Create DATABASE.
+            base.OnModelCreating(modelBuilder);
         }
 
 
