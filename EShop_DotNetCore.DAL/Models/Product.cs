@@ -18,5 +18,6 @@ namespace EShop_DotNetCore.DAL.Models
         public List<ProductCategory> ProductCategories { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
         public List<Cart> Carts { get; set; }
+        public List<ProductImage> ProductImages { get; set; }
     }
 }
