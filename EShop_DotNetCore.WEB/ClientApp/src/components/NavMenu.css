@@ -1,18 +1,223 @@
-﻿a.navbar-brand {
-  white-space: normal;
+﻿:root {
+  --textColor: rgb(248, 246, 246);
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+hr {
+  text-align: left;
+  display: block;
+  width: 5%;
+  margin: 10px 0;
+  border-style: solid;
+  color: white;
+  background-color: white;
+}
+p {
+  color: white;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--textColor);
+}
+a {
+  text-decoration: none !important;
+}
+
+.introduce {
+  height: 450px;
+  padding-top: 100px;
+  background-image: url("../Images/sclass.png");
+}
+.introduce > p {
+  margin: 0 0 0 15%;
+  padding: 15px 0 0 0;
+  font-size: 20px;
+}
+
+body {
+  background-color: black;
+  scroll-behavior: smooth;
+}
+li {
+  list-style-type: none;
+}
+.header1 {
+  margin: 0 10%;
+}
+nav > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+nav > ul > li > a,
+.navb ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 15px 10px;
+  display: block;
+}
+nav > ul > li > a {
+  font-size: 18px;
+}
+nav > ul > li > a:hover {
+  transition: all 0.3s;
+  color: rgb(78, 78, 78);
+}
+.headline {
+  background-color: black;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.slogan {
+  margin-top: 14px;
+  margin-left: 45px;
+}
+.slogan > h3,
+h4 {
+  display: block;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+}
+
+/* navbar */
+.navb {
+  height: 50px;
+}
+.navb ul {
+  display: flex;
+  background-color: #121111;
+}
+.navb ul li {
+  padding: 0 10px;
+  list-style: none;
+}
+.navb ul li a{
+  font-size: 15px;
+}
+.navb ul li a:hover {
+  color: #0577a4;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+#home {
+  color: #0577a4;
+}
+/* nav-right */
+#list-1 {
+  position: fixed;
+  right: 0;
+  top: 40%;
+}
+#list-1:hover .txt1 {
+  display: inline-block;
+  width: 90px;
+  transition: all 0.5s;
+}
+#list-2 {
+  position: fixed;
+  right: 0;
+  top: 47%;
+}
+#list-2:hover .txt2 {
+  display: inline-block;
+  width: 90px;
+  transition: all 0.5s;
+}
+#list-3 {
+  position: fixed;
+  right: 0;
+  top: 54%;
+}
+#list-3:hover .txt3 {
+  display: inline-block;
+  width: 90px;
+  transition: all 0.5s;
+}
+#list-4 {
+  position: fixed;
+  right: 0;
+  top: 61%;
+}
+#list-4:hover .txt4 {
+  display: inline-block;
+  width: 90px;
+  transition: all 0.5s;
+}
+
+.list-nav-right {
+  background-color: #00adef;
+}
+
+.list-nav-right a i {
+  color: rgb(243, 242, 241);
+  font-size: 35px;
+  background-color: #00adef;
+  width: 40px;
+  height: 35px;
   text-align: center;
-  word-break: break-all;
+  padding: 5px;
 }
-
-html {
-  font-size: 14px;
+/* link-text */
+.txt1,
+.txt2,
+.txt3,
+.txt4 {
+  display: none;
+  color: rgb(243, 242, 241);
+  font-size: 15px;
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+/* nav-left */
+.nav-left {
+  position: fixed;
+  left: 0;
+  margin-left: -40px;
+  width: 250px;
 }
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+#home1 {
+  color: #0577a4;
+}
+#home1 i {
+  font-size: 25px !important;
+}
+.nav-left ul li h1 {
+  color: rgb(243, 242, 241);
+  position: absolute;
+  top: 5px;
+  right: 20%;
+  display: none;
+}
+.nav-left ul:hover {
+  transition: all 0.5s !important;
+  background-color: #161616;
+}
+.nav-left ul li {
+  padding: 20px 10px;
+}
+.nav-left ul li a {
+  color: rgb(243, 242, 241);
+}
+.nav-left ul li a:hover {
+  color: #0577a4;
+  transition: all 0.5s;
+}
+.text-link {
+  display: none;
+  margin-left: 10px;
+}
+.nav-left ul:hover .text-link {
+  display: inline-block;
+}
+.nav-left ul:hover #title {
+  display: block;
 }

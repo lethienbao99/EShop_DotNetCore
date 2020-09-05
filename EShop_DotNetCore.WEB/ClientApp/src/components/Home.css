@@ -1,0 +1,108 @@
+/* CSS introduce */
+.infor{
+    box-sizing: border-box;
+}
+.detail{
+    color: white;
+    margin:3% 10%;
+}
+.detail > h2{
+    font-weight: 450;
+}
+.detail > h4 {
+    font-weight: 300;
+    text-align: left;
+    padding-top: 10px;
+    margin: 5px 0;
+}
+.detail > p {
+    text-align: justify;
+    margin-right: 30%;
+    margin-bottom: 3%;
+    font-size: 15px;
+}
+.divngoai{
+    display: flex;
+}
+.imgde {
+    width: 73%;
+    margin:0 ;
+}
+.img1{
+    margin: 0;
+}
+
+.img23 {
+    width: 46%;
+    margin: 0;
+}
+
+.img2infor {    
+    margin: 0 10% 5% 5%;
+}
+.img3infor {    
+    width: 70%;
+    margin: 10% 5%;
+}
+.designdetail{
+    font-size: 22px;
+    font-weight: 250;
+}
+.comfortlist{
+    box-sizing: border-box;
+    margin-left: 10px;
+    padding: 0 17px;
+    display: flexbox;
+}
+.comfortlist > ul {
+    margin-left:5%;
+}
+.comfortlist > ul > li {
+    list-style-type: disc;
+
+}
+.comfortlist > h3 {
+    font-weight: 400;
+    font-size: 23px;
+}
+.safelist > ul > li {
+    list-style-type: disc;
+}
+.safelist > h3 {
+    font-weight: 400;
+    font-size: 23px;
+}
+.specification > h2{
+    font-weight: 100;
+    /* trỏ chi tiết vô tag h thì mới ghi đè lên dc */
+    font-size: 30px;
+}
+.specification > h5{
+    font-weight: 100;
+    /* trỏ chi tiết vô tag h thì mới ghi đè lên dc */
+    font-size: 15px;
+}
+.specification > hr {
+    width: 100%;
+}
+.specification{
+    width: 40%;
+    margin-right: 20px;
+}
+.clickmore > a{
+    text-decoration: none;
+    color: lightgrey;
+    background-color: #00ADEF;
+    padding: 5px 10px;
+    margin: 0 5px 10px 10px;
+    font-weight: 200;
+    font-size: 15px;
+    text-align: center;
+}
+.clickmore{
+    width: 250px;
+    margin-left: 7%;
+}
+.clickmore a:hover{
+    background-color: #0577A4;
+}

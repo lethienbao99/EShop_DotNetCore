@@ -1,0 +1,41 @@
+.footnav{
+    display: flex;
+}
+.footnav > nav{
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+}
+.footnav > nav > ul{
+    margin: 20px 0 ;
+}
+.footnav li:hover{
+    color:yellow ;
+    /* sửa lại */
+}
+.footnav li {
+    display: block;
+    width: 200px;
+    background: linear-gradient(#262623,#6d7c8a);
+    margin:10px 10px 10px 10px; 
+    padding: 14px 60px;
+    padding-left: 10px;
+}
+
+.footnav img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+.footnav a {
+    float: right;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 25px;
+    color: white;
+}
+.footnav a:hover{
+    color: #00ADEF;
+}
