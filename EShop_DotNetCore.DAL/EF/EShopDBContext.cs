@@ -2,17 +2,39 @@
 using EShop_DotNetCore.DAL.DataSeeding;
 using EShop_DotNetCore.DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace EShop_DotNetCore.DAL.EF
 {
     public class EShopDBContext : DbContext
     {
-        public EShopDBContext(DbContextOptions options) : base(options)
+        public EShopDBContext()
+        {
+        }
+        public EShopDBContext(DbContextOptions<EShopDBContext> options) : base(options)
         {
 
+        }
+
+
+        /*     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+             {
+                 if (!optionsBuilder.IsConfigured)
+                 {
+                     optionsBuilder.UseSqlServer("Data Source=.\\.;Initial Catalog=EShopDB_DNC;Persist Security Info=True;User ID=sa;Password=1;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=True;");
+                 }
+             }*/
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=.;Database=EShopDB_DNC;Trusted_Connection=True;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,7 +52,7 @@ namespace EShop_DotNetCore.DAL.EF
             modelBuilder.Seed();
 
 
-            //base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
 
 
