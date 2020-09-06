@@ -1,17 +1,27 @@
-﻿using EShop_DotNetCore.DAL.Configurations;
+﻿using EShop_DotNetCore.COMMON.Constants;
+using EShop_DotNetCore.DAL.Configurations;
 using EShop_DotNetCore.DAL.DataSeeding;
 using EShop_DotNetCore.DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace EShop_DotNetCore.DAL.EF
 {
     public class EShopDBContext : DbContext
     {
-        public EShopDBContext(DbContextOptions options) : base(options)
+        public EShopDBContext() { }
+        public EShopDBContext(DbContextOptions<EShopDBContext> options) : base(options) { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // READ DATABASE FROM MSSQL SERVER
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(SystemConstant.ConnectionString);
+            }
 
         }
 
@@ -25,12 +35,13 @@ namespace EShop_DotNetCore.DAL.EF
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelBuilder.ApplyConfiguration(new CartConfiguration());
+            modelBuilder.ApplyConfiguration(new ImageConfiguration());
 
             //Data Seeding.
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
 
-
-            //base.OnModelCreating(modelBuilder);
+            //Create DATABASE.
+            base.OnModelCreating(modelBuilder);
         }
 
 
@@ -44,5 +55,6 @@ namespace EShop_DotNetCore.DAL.EF
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }

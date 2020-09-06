@@ -13,4 +13,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EShop_DotNetCore.COMMON\EShop_DotNetCore.COMMON.csproj" />
+    <ProjectReference Include="..\EShop_DotNetCore.DAL\EShop_DotNetCore.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
