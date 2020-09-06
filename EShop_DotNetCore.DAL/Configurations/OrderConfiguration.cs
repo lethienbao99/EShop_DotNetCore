@@ -19,6 +19,7 @@ namespace EShop_DotNetCore.DAL.Configurations
 
             //Set PrimaryKey.
             builder.HasKey(x => x.OrderId);
+            builder.HasOne(x => x.AppUser).WithMany(x => x.Orders).HasForeignKey(x => x.UserId);
 
             //Set element in table.
             builder.Property(x => x.ShipEmail).IsRequired().IsUnicode(false).HasMaxLength(50);

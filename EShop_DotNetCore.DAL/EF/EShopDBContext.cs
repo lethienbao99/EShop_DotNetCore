@@ -38,6 +38,7 @@ namespace EShop_DotNetCore.DAL.EF
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelBuilder.ApplyConfiguration(new CartConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
 
             //Identity
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());

@@ -17,7 +17,8 @@ namespace EShop_DotNetCore.DAL.Models
         public TransactionStatus Status { set; get; }
         public string Provider { set; get; }
 
-        public Guid user_id { get; set; }
+        public Guid UserId { get; set; }
+        public AppUser AppUser { get; set; }
 
     }
 }

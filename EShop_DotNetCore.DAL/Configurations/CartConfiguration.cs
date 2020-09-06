@@ -21,6 +21,7 @@ namespace EShop_DotNetCore.DAL.Configurations
             //Set ForeignKey
             // RelationShip 1-n with Orders.
             builder.HasOne(x => x.Product).WithMany(x => x.Carts).HasForeignKey(x => x.ProductId);
+            builder.HasOne(x => x.AppUser).WithMany(x => x.Carts).HasForeignKey(x => x.UserId);
             //Set element in table.
             builder.Property(x => x.CartId).UseIdentityColumn();
 
