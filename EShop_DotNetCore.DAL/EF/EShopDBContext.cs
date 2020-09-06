@@ -1,4 +1,5 @@
-﻿using EShop_DotNetCore.DAL.Configurations;
+﻿using EShop_DotNetCore.COMMON.Constants;
+using EShop_DotNetCore.DAL.Configurations;
 using EShop_DotNetCore.DAL.DataSeeding;
 using EShop_DotNetCore.DAL.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +20,9 @@ namespace EShop_DotNetCore.DAL.EF
             // READ DATABASE FROM MSSQL SERVER
             if (!optionsBuilder.IsConfigured)
             {
-            optionsBuilder.UseSqlServer("Server=.;Database=EShopDB_DNC;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(SystemConstant.ConnectionString);
             }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,7 +35,7 @@ namespace EShop_DotNetCore.DAL.EF
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelBuilder.ApplyConfiguration(new CartConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
+            modelBuilder.ApplyConfiguration(new ImageConfiguration());
 
             //Data Seeding.
             modelBuilder.Seed();
@@ -53,6 +55,6 @@ namespace EShop_DotNetCore.DAL.EF
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }

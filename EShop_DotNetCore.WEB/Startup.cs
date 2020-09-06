@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EShop_DotNetCore.COMMON.Constants;
 using EShop_DotNetCore.DAL.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,8 +27,10 @@ namespace EShop_DotNetCore.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             /*services.AddDbContext<EShopDBContext>(options =>
-         options.UseSqlServer(Configuration.GetConnectionString("EShopDB_DNC")));*/
+          options.UseSqlServer(Configuration.GetConnectionString("Server=.;Database=EShopDB_DNC;Trusted_Connection=True;")));*/
+
             services.AddControllersWithViews();
             #region -- Swagger --            
             var inf1 = new OpenApiInfo
