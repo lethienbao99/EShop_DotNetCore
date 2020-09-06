@@ -2,6 +2,7 @@
 using EShop_DotNetCore.DAL.Configurations;
 using EShop_DotNetCore.DAL.DataSeeding;
 using EShop_DotNetCore.DAL.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -11,7 +12,7 @@ using System.Text;
 
 namespace EShop_DotNetCore.DAL.EF
 {
-    public class EShopDBContext : DbContext
+    public class EShopDBContext : IdentityDbContext<AppUser,AppRole,Guid>
     {
         public EShopDBContext() {}
         public EShopDBContext(DbContextOptions<EShopDBContext> options) : base(options) {}

@@ -142,6 +142,52 @@ namespace EShop_DotNetCore.BLL.EntitiesSvc
             return res;
         }
 
+        public object SearchProductPaging(string Keyword, int Page, int Size)
+        {
+            var product = from p in _rep.Context.Products
+                          where p.Name.Contains(Keyword)
+                          select new
+                          {
+                              Id = p.ProductId,
+                              Name = p.Name,
+                              Categories = (from c in _rep.Context.Categories
+                                            join pc in _rep.Context.ProductCategories on c.CategoryId equals pc.CategoryId
+                                            where c.CategoryId == pc.CategoryId && p.ProductId == pc.ProductId
+                                            select new
+                                            {
+                                                Name = c.Name
+                                            }).FirstOrDefault(),
+                              Description = p.Description,
+                              Price = p.Price,
+                              Detail = p.Detail,
+                              Stock = p.Stock,
+                              Images = (from i in _rep.Context.Images
+                                        where i.ProductId == p.ProductId
+                                        select new
+                                        {
+                                            Id = i.ImageId,
+                                            Url = i.Url,
+                                            IsDefault = i.IsDefault
+                                        }).ToList(),
+                              DateCreated = p.DateCreated
+                          };
+
+            var offset = (Page - 1) * Size;
+            var total = product.Count();
+            int totalpage = (total % Size) == 0 ? (total / Size) : (int)((total / Size) + 1);
+            var data = product.OrderBy(x => x.Id).Skip(offset).Take(Size).ToList();
+            var res = new
+            {
+                Data = data,
+                TotalRecord = total,
+                TotalPage = totalpage,
+                Page = Page,
+                Size = Size
+            };
+
+            return res;
+        }
+
         public SingleRsp CreateProduct(ProductCreateReq pro)
         {
             var res = new SingleRsp();

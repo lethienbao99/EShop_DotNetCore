@@ -41,6 +41,15 @@ namespace EShop_DotNetCore.WEB.Controllers
             return Ok(res);
         }
 
+        [HttpGet("Search")]
+        public IActionResult SearchProductPaging(string Keyword, int Page, int Size)
+        {
+            var res = new SingleRsp();
+            var products = _svc.SearchProductPaging(Keyword, Page, Size);
+            res.Data = products;
+            return Ok(res);
+        }
+
         [HttpPost]
         public IActionResult CreateProduct([FromForm] ProductCreateReq req)
         {
