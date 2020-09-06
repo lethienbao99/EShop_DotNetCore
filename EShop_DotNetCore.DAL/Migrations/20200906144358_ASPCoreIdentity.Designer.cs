@@ -4,14 +4,16 @@ using EShop_DotNetCore.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EShop_DotNetCore.DAL.Migrations
 {
     [DbContext(typeof(EShopDBContext))]
-    partial class EShopDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200906144358_ASPCoreIdentity")]
+    partial class ASPCoreIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,16 +83,6 @@ namespace EShop_DotNetCore.DAL.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ee976566-d4be-407b-96d4-5c69da8806a8"),
-                            ConcurrencyStamp = "1ba34de3-bfa8-4ec3-96dc-286129fcc2c6",
-                            Description = "Administrator role",
-                            Name = "admin",
-                            NormalizedName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.AppUser", b =>
@@ -167,26 +159,6 @@ namespace EShop_DotNetCore.DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("fd3bc079-8c61-4ff2-a5b7-278a58ec5273"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "2fa9028b-0305-4ebb-bd97-ce7c1d07a0c2",
-                            Email = "lethienbao3012@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Le",
-                            LastName = "Bao",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "tedu.international@gmail.com",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG1WTFXv93aZzNxZtLZ+FLwhVNJV7uQvib7fUTHdzGD0dn9OBd8SPDIiYoeDMI/obg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Cart", b =>
@@ -410,7 +382,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 1,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 62, DateTimeKind.Local).AddTicks(4391),
+                            DateCreated = new DateTime(2020, 9, 6, 21, 43, 58, 22, DateTimeKind.Local).AddTicks(3399),
                             Description = "",
                             Detail = "best TV",
                             Name = "TV",
@@ -422,7 +394,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 2,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8213),
+                            DateCreated = new DateTime(2020, 9, 6, 21, 43, 58, 23, DateTimeKind.Local).AddTicks(6452),
                             Description = "",
                             Detail = "best mircowave",
                             Name = "Microwave",
@@ -434,7 +406,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 3,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8298),
+                            DateCreated = new DateTime(2020, 9, 6, 21, 43, 58, 23, DateTimeKind.Local).AddTicks(6543),
                             Description = "",
                             Detail = "best the android smartphone from samsung",
                             Name = "Samsung Note 20 Ultra",
@@ -446,7 +418,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 4,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8302),
+                            DateCreated = new DateTime(2020, 9, 6, 21, 43, 58, 23, DateTimeKind.Local).AddTicks(6547),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -458,7 +430,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 5,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8304),
+                            DateCreated = new DateTime(2020, 9, 6, 21, 43, 58, 23, DateTimeKind.Local).AddTicks(6549),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -470,7 +442,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 6,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8306),
+                            DateCreated = new DateTime(2020, 9, 6, 21, 43, 58, 23, DateTimeKind.Local).AddTicks(6551),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -482,7 +454,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 7,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8308),
+                            DateCreated = new DateTime(2020, 9, 6, 21, 43, 58, 23, DateTimeKind.Local).AddTicks(6552),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -707,13 +679,6 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("fd3bc079-8c61-4ff2-a5b7-278a58ec5273"),
-                            RoleId = new Guid("ee976566-d4be-407b-96d4-5c69da8806a8")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
