@@ -118,6 +118,16 @@ namespace EShop_DotNetCore.DAL.EntitiesRep
         }
         #endregion
 
-       
+        #region Get ViewCount 
+        public bool AddViewCount(int Id)
+        {
+            var product = Context.Products.Find(Id);
+            product.ViewCount += 1;
+            Context.SaveChanges();
+            return true;
+        }
+        #endregion
+
+
     }
 }

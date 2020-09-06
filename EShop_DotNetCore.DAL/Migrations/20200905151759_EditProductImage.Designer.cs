@@ -4,14 +4,16 @@ using EShop_DotNetCore.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EShop_DotNetCore.DAL.Migrations
 {
     [DbContext(typeof(EShopDBContext))]
-    partial class EShopDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200905151759_EditProductImage")]
+    partial class EditProductImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,29 +144,6 @@ namespace EShop_DotNetCore.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Image", b =>
-                {
-                    b.Property<int>("ImageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ImageId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Images");
-                });
-
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -265,7 +244,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 1,
-                            DateCreated = new DateTime(2020, 9, 6, 13, 34, 8, 867, DateTimeKind.Local).AddTicks(8273),
+                            DateCreated = new DateTime(2020, 9, 5, 22, 17, 58, 388, DateTimeKind.Local).AddTicks(4351),
                             Description = "",
                             Detail = "best TV",
                             Name = "TV",
@@ -277,7 +256,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 2,
-                            DateCreated = new DateTime(2020, 9, 6, 13, 34, 8, 869, DateTimeKind.Local).AddTicks(2269),
+                            DateCreated = new DateTime(2020, 9, 5, 22, 17, 58, 390, DateTimeKind.Local).AddTicks(669),
                             Description = "",
                             Detail = "best mircowave",
                             Name = "Microwave",
@@ -289,7 +268,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 3,
-                            DateCreated = new DateTime(2020, 9, 6, 13, 34, 8, 869, DateTimeKind.Local).AddTicks(2377),
+                            DateCreated = new DateTime(2020, 9, 5, 22, 17, 58, 390, DateTimeKind.Local).AddTicks(782),
                             Description = "",
                             Detail = "best the android smartphone from samsung",
                             Name = "Samsung Note 20 Ultra",
@@ -301,7 +280,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 4,
-                            DateCreated = new DateTime(2020, 9, 6, 13, 34, 8, 869, DateTimeKind.Local).AddTicks(2381),
+                            DateCreated = new DateTime(2020, 9, 5, 22, 17, 58, 390, DateTimeKind.Local).AddTicks(787),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -313,7 +292,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 5,
-                            DateCreated = new DateTime(2020, 9, 6, 13, 34, 8, 869, DateTimeKind.Local).AddTicks(2388),
+                            DateCreated = new DateTime(2020, 9, 5, 22, 17, 58, 390, DateTimeKind.Local).AddTicks(790),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -325,7 +304,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 6,
-                            DateCreated = new DateTime(2020, 9, 6, 13, 34, 8, 869, DateTimeKind.Local).AddTicks(2390),
+                            DateCreated = new DateTime(2020, 9, 5, 22, 17, 58, 390, DateTimeKind.Local).AddTicks(793),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -337,7 +316,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 7,
-                            DateCreated = new DateTime(2020, 9, 6, 13, 34, 8, 869, DateTimeKind.Local).AddTicks(2392),
+                            DateCreated = new DateTime(2020, 9, 5, 22, 17, 58, 390, DateTimeKind.Local).AddTicks(795),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -398,6 +377,42 @@ namespace EShop_DotNetCore.DAL.Migrations
                             ProductId = 7,
                             CategoryId = 3
                         });
+                });
+
+            modelBuilder.Entity("EShop_DotNetCore.DAL.Models.ProductImage", b =>
+                {
+                    b.Property<int>("ProductImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Alt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductImageId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Promotion", b =>
@@ -487,15 +502,6 @@ namespace EShop_DotNetCore.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Image", b =>
-                {
-                    b.HasOne("EShop_DotNetCore.DAL.Models.Product", "Product")
-                        .WithMany("Images")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.OrderDetail", b =>
                 {
                     b.HasOne("EShop_DotNetCore.DAL.Models.Order", "Order")
@@ -521,6 +527,15 @@ namespace EShop_DotNetCore.DAL.Migrations
 
                     b.HasOne("EShop_DotNetCore.DAL.Models.Product", "Product")
                         .WithMany("ProductCategories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EShop_DotNetCore.DAL.Models.ProductImage", b =>
+                {
+                    b.HasOne("EShop_DotNetCore.DAL.Models.Product", "Product")
+                        .WithMany("ProductImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
