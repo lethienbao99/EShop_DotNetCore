@@ -31,6 +31,23 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.HasKey("Key");
 
                     b.ToTable("AppConfigs");
+
+                    b.HasData(
+                        new
+                        {
+                            Key = "HomeTitle",
+                            Value = "Homepage of the EShop"
+                        },
+                        new
+                        {
+                            Key = "Keyword",
+                            Value = "Keyword of the EShop"
+                        },
+                        new
+                        {
+                            Key = "Description",
+                            Value = "Description of the EShop"
+                        });
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Cart", b =>
@@ -94,6 +111,60 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            IsShowOnHome = true,
+                            Name = "Tech",
+                            Slug = "tech",
+                            SortOrder = 1,
+                            Status = 1
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            IsShowOnHome = true,
+                            Name = "Smartphone",
+                            Slug = "smartphone",
+                            SortOrder = 2,
+                            Status = 1
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            IsShowOnHome = true,
+                            Name = "Laptop",
+                            Slug = "laptop",
+                            SortOrder = 3,
+                            Status = 1
+                        });
+                });
+
+            modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Image", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDefault")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Order", b =>
@@ -191,6 +262,92 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            DateCreated = new DateTime(2020, 9, 6, 14, 59, 24, 173, DateTimeKind.Local).AddTicks(7484),
+                            Description = "",
+                            Detail = "best TV",
+                            Name = "TV",
+                            Price = 5500m,
+                            Slug = "best-tv",
+                            Stock = 0,
+                            ViewCount = 0
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            DateCreated = new DateTime(2020, 9, 6, 14, 59, 24, 175, DateTimeKind.Local).AddTicks(2384),
+                            Description = "",
+                            Detail = "best mircowave",
+                            Name = "Microwave",
+                            Price = 5600m,
+                            Slug = "best-mircowave",
+                            Stock = 0,
+                            ViewCount = 0
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            DateCreated = new DateTime(2020, 9, 6, 14, 59, 24, 175, DateTimeKind.Local).AddTicks(2489),
+                            Description = "",
+                            Detail = "best the android smartphone from samsung",
+                            Name = "Samsung Note 20 Ultra",
+                            Price = 5500m,
+                            Slug = "samsung-note-20-ultra",
+                            Stock = 0,
+                            ViewCount = 0
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            DateCreated = new DateTime(2020, 9, 6, 14, 59, 24, 175, DateTimeKind.Local).AddTicks(2493),
+                            Description = "",
+                            Detail = "best the android smartphone from OnePlus",
+                            Name = "OnePlus 8 Pro 5G",
+                            Price = 5500m,
+                            Slug = "oneplus-8pro-5g",
+                            Stock = 0,
+                            ViewCount = 0
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            DateCreated = new DateTime(2020, 9, 6, 14, 59, 24, 175, DateTimeKind.Local).AddTicks(2494),
+                            Description = "",
+                            Detail = "best the android smartphone from OnePlus",
+                            Name = "OnePlus 8 Pro 5G",
+                            Price = 5500m,
+                            Slug = "oneplus-8pro-5g",
+                            Stock = 0,
+                            ViewCount = 0
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            DateCreated = new DateTime(2020, 9, 6, 14, 59, 24, 175, DateTimeKind.Local).AddTicks(2496),
+                            Description = "",
+                            Detail = "best the android smartphone from OnePlus",
+                            Name = "OnePlus 8 Pro 5G",
+                            Price = 5500m,
+                            Slug = "oneplus-8pro-5g",
+                            Stock = 0,
+                            ViewCount = 0
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            DateCreated = new DateTime(2020, 9, 6, 14, 59, 24, 175, DateTimeKind.Local).AddTicks(2498),
+                            Description = "",
+                            Detail = "best the android smartphone from OnePlus",
+                            Name = "OnePlus 8 Pro 5G",
+                            Price = 5500m,
+                            Slug = "oneplus-8pro-5g",
+                            Stock = 0,
+                            ViewCount = 0
+                        });
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.ProductCategory", b =>
@@ -206,6 +363,43 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("ProductCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            CategoryId = 3
+                        });
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Promotion", b =>
@@ -290,6 +484,15 @@ namespace EShop_DotNetCore.DAL.Migrations
                 {
                     b.HasOne("EShop_DotNetCore.DAL.Models.Product", "Product")
                         .WithMany("Carts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Image", b =>
+                {
+                    b.HasOne("EShop_DotNetCore.DAL.Models.Product", "Product")
+                        .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
