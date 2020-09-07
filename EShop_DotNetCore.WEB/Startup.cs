@@ -1,7 +1,14 @@
+using EShop_DotNetCore.BLL.EntitiesSvc;
+using EShop_DotNetCore.COMMON.Constants;
+using EShop_DotNetCore.COMMON.IEntitesSvc;
+using EShop_DotNetCore.DAL.EF;
+using EShop_DotNetCore.DAL.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,14 +29,32 @@ namespace EShop_DotNetCore.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+     
             services.AddControllersWithViews();
+
+            services.AddDbContext<EShopDBContext>(options =>
+         options.UseSqlServer(Configuration.GetConnectionString(SystemConstant.ConnectionStringSU)));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            //Declare DI
+            services.AddIdentity<AppUser, AppRole>()
+                .AddEntityFrameworkStores<EShopDBContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
+            services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
+            services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
+            services.AddTransient<IUsersSvc, UsersSvc>();
+          
+
+
+            string issuer = Configuration.GetValue<string>("Tokens:Issuer");
+            string signingKey = Configuration.GetValue<string>("Tokens:Key");
 
             #region -- Swagger --            
             var inf1 = new OpenApiInfo
@@ -101,12 +126,14 @@ namespace EShop_DotNetCore.WEB
 
             app.UseCors(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
