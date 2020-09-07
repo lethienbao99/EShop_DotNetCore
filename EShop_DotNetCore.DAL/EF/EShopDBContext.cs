@@ -1,17 +1,29 @@
-﻿using EShop_DotNetCore.DAL.Configurations;
+﻿using EShop_DotNetCore.COMMON.Constants;
+using EShop_DotNetCore.DAL.Configurations;
 using EShop_DotNetCore.DAL.DataSeeding;
 using EShop_DotNetCore.DAL.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace EShop_DotNetCore.DAL.EF
 {
-    public class EShopDBContext : DbContext
+    public class EShopDBContext : IdentityDbContext<AppUser,AppRole,Guid>
     {
-        public EShopDBContext(DbContextOptions options) : base(options)
+        public EShopDBContext() {}
+        public EShopDBContext(DbContextOptions<EShopDBContext> options) : base(options) {}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // READ DATABASE FROM MSSQL SERVER
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(SystemConstant.ConnectionStringDBC);
+            }
 
         }
 
@@ -25,12 +37,23 @@ namespace EShop_DotNetCore.DAL.EF
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             modelBuilder.ApplyConfiguration(new CartConfiguration());
+            modelBuilder.ApplyConfiguration(new ImageConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
+
+            //Identity
+            modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
+            modelBuilder.ApplyConfiguration(new AppUserConfiguration());
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
 
             //Data Seeding.
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
 
-
-            //base.OnModelCreating(modelBuilder);
+            //Create DATABASE.
+            base.OnModelCreating(modelBuilder);
         }
 
 
@@ -44,5 +67,6 @@ namespace EShop_DotNetCore.DAL.EF
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }
