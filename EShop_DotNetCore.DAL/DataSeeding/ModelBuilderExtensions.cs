@@ -1,5 +1,6 @@
 ﻿using EShop_DotNetCore.DAL.Enums;
 using EShop_DotNetCore.DAL.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -168,6 +169,38 @@ namespace EShop_DotNetCore.DAL.DataSeeding
                    new ProductCategory() { ProductId = 6, CategoryId = 2 },
                    new ProductCategory() { ProductId = 7, CategoryId = 3 }
                    );
+
+
+            // any guid
+            var roleId = new Guid("EE976566-D4BE-407B-96D4-5C69DA8806A8");
+            var adminId = new Guid("FD3BC079-8C61-4FF2-A5B7-278A58EC5273");
+            modelBuilder.Entity<AppRole>().HasData(new AppRole
+            {
+                Id = roleId,
+                Name = "admin",
+                NormalizedName = "admin",
+                Description = "Administrator role"
+            });
+
+            var hasher = new PasswordHasher<AppUser>();
+            modelBuilder.Entity<AppUser>().HasData(new AppUser
+            {
+                Id = adminId,
+                UserName = "admin",
+                NormalizedUserName = "admin",
+                Email = "lethienbao3012@gmail.com",
+                NormalizedEmail = "tedu.international@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "123abC!"),
+                SecurityStamp = string.Empty,
+                FirstName = "Le",
+                LastName = "Bao",
+            });
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
+            {
+                RoleId = roleId,
+                UserId = adminId
+            });
 
         }
     }

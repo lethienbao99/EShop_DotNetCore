@@ -16,6 +16,7 @@ namespace EShop_DotNetCore.DAL.Models
         public string ShipNumberPhone { set; get; }
         public OrderStatus Status { set; get; }
         public List<OrderDetail> OrderDetails { get; set; }
+        public AppUser AppUser { get; set; }
 
 
 
