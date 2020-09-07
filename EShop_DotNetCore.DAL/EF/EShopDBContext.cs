@@ -22,7 +22,7 @@ namespace EShop_DotNetCore.DAL.EF
             // READ DATABASE FROM MSSQL SERVER
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(SystemConstant.ConnectionString);
+                optionsBuilder.UseSqlServer(SystemConstant.ConnectionStringDBC);
             }
 
         }

@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EShop_DotNetCore.BLL.EntitiesSvc;
 using EShop_DotNetCore.COMMON.Constants;
+using EShop_DotNetCore.COMMON.IEntitesSvc;
 using EShop_DotNetCore.DAL.EF;
+using EShop_DotNetCore.DAL.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,9 +31,11 @@ namespace EShop_DotNetCore.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+/*
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");*/
 
-            /*services.AddDbContext<EShopDBContext>(options =>
-          options.UseSqlServer(Configuration.GetConnectionString("Server=.;Database=EShopDB_DNC;Trusted_Connection=True;")));*/
+            services.AddDbContext<EShopDBContext>(options =>
+          options.UseSqlServer(Configuration.GetConnectionString(SystemConstant.ConnectionStringSU)));
 
             services.AddControllersWithViews();
             #region -- Swagger --            
@@ -75,6 +81,22 @@ namespace EShop_DotNetCore.WEB
                 c.SwaggerDoc("v2", inf2);
             });
             #endregion
+            //Declare DI
+            services.AddIdentity<AppUser, AppRole>()
+                .AddEntityFrameworkStores<EShopDBContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
+            services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
+            services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
+            services.AddTransient<IUsersSvc, UsersSvc>();
+            services.AddSingleton<IConfiguration>(Configuration);
+
+
+            string issuer = Configuration.GetValue<string>("Tokens:Issuer");
+            string signingKey = Configuration.GetValue<string>("Tokens:Key");
+       /*     byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);*/
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +120,7 @@ namespace EShop_DotNetCore.WEB
                 c.SwaggerEndpoint("/swagger/v2/swagger.json", "API v2.0");
             });
             #endregion
+
 
             app.UseCors(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseHttpsRedirection();
