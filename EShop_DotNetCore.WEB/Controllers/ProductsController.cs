@@ -7,6 +7,7 @@ using EShop_DotNetCore.COMMON.Req;
 using EShop_DotNetCore.COMMON.Req.EntitiesReq;
 using EShop_DotNetCore.COMMON.Req.EntitiesReq.Products;
 using EShop_DotNetCore.COMMON.Rsp;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,8 @@ namespace EShop_DotNetCore.WEB.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class ProductsController : ControllerBase
     {
         private readonly ProductsSvc _svc;
@@ -22,13 +25,11 @@ namespace EShop_DotNetCore.WEB.Controllers
         {
             _svc = new ProductsSvc();
         }
+
         [HttpGet("{Id}")]
         public IActionResult GetProductById(int Id)
         {
-            var res = new SingleRsp();
-            var product = _svc.GetProductById(Id);
-            res.Data = product;
-
+            var res = _svc.GetProductById(Id);
             return Ok(res);
         }
 
