@@ -15,8 +15,10 @@ namespace EShop_DotNetCore.DAL.EF
 {
     public class EShopDBContext : IdentityDbContext<AppUser,AppRole,Guid>
     {
-        public EShopDBContext() {}
-        public EShopDBContext(DbContextOptions<EShopDBContext> options) : base(options) {}
+
+        public EShopDBContext(DbContextOptions options) : base(options)
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // READ DATABASE FROM MSSQL SERVER

@@ -1,6 +1,4 @@
-﻿using EShop_DotNetCore.COMMON.BLL;
-using EShop_DotNetCore.COMMON.Rsp;
-using EShop_DotNetCore.DAL.Models;
+﻿using EShop_DotNetCore.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,229 +10,191 @@ using System.IO;
 using EShop_DotNetCore.COMMON.Req.EntitiesReq;
 using EShop_DotNetCore.DAL.EF;
 using System.Security.Cryptography;
-using EShop_DotNetCore.DAL.EntitiesRep;
 using EShop_DotNetCore.COMMON.Req.EntitiesReq.Products;
 using EShop_DotNetCore.COMMON.Req;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using EShop_DotNetCore.COMMON.IEntitesSvc;
+using Blog.COMMON.Common;
+using System.Runtime.CompilerServices;
+using EShop_DotNetCore.COMMON.Exceptions;
 
 namespace EShop_DotNetCore.BLL.EntitiesSvc
 {
-    public class ProductsSvc : GenericSvc<ProductsRep, Product>
+    public class ProductsSvc : IProductSvc
     {
-        #region -- Overrides --
-
-        /// <summary>
-        /// Read single object
-        /// </summary>
-        /// <param name="id">Primary key</param>
-        /// <returns>Return the object</returns>
-        public override SingleRsp Read(int id)
+        private readonly EShopDBContext _context;
+        public ProductsSvc(EShopDBContext context)
         {
-            var res = new SingleRsp();
-
-            var m = _rep.Read(id);
-            res.Data = m;
-
-            return res;
+            _context = context;
+        }
+        public Task AddViewCount(int id)
+        {
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Update
-        /// </summary>
-        /// <param name="m">The model</param>
-        /// <returns>Return the result</returns>
-        public override SingleRsp Update(Product m)
+        public async Task<int> Create(ProductCreateReq request)
         {
-            var res = new SingleRsp();
-
-            var m1 = m.ProductId > 0 ? _rep.Read(m.ProductId) : _rep.Read(m.Description);
-            if (m1 == null)
+            var product = new Product()
             {
-                res.SetError("EZ103", "No data.");
-            }
-            else
-            {
-                res = base.Update(m);
-                res.Data = m;
-            }
-
-            return res;
-        }
-        #endregion
-
-        #region -- Methods --
-
-        public ProductsSvc() {}
-
-        public object GetProductById(int Id)
-        {
-            var product = from p in _rep.Context.Products
-                          where p.ProductId == Id
-                          select new
-                          {
-                              Id = p.ProductId,
-                              Name = p.Name,
-                              Categories = (from c in _rep.Context.Categories
-                                            join pc in _rep.Context.ProductCategories on c.CategoryId equals pc.CategoryId
-                                            where c.CategoryId == pc.CategoryId && p.ProductId == pc.ProductId
-                                            select new 
-                                            {
-                                                Name = c.Name
-                                            }).FirstOrDefault(),
-                              Description = p.Description,
-                              Price = p.Price,
-                              Detail = p.Detail,
-                              Stock = p.Stock,
-                              Images = (from i in _rep.Context.Images
-                                        where i.ProductId == p.ProductId
-                                        select new
-                                        {
-                                            Id = i.ImageId,
-                                            Url = i.Url,
-                                            IsDefault = i.IsDefault
-                                        }).ToList(),
-                              DateCreated = p.DateCreated
-                          };
-            return product;
-        }
-
-        public object GetAllProductPaging(int Page, int Size)
-        {
-              var product = from p in _rep.Context.Products
-                          select new
-                          {
-                              Id = p.ProductId,
-                              Name = p.Name,
-                              Categories = (from c in _rep.Context.Categories
-                                            join pc in _rep.Context.ProductCategories on c.CategoryId equals pc.CategoryId
-                                            where c.CategoryId == pc.CategoryId && p.ProductId == pc.ProductId
-                                            select new
-                                            {
-                                                Name = c.Name
-                                            }).FirstOrDefault(),
-                              Description = p.Description,
-                              Price = p.Price,
-                              Detail = p.Detail,
-                              Stock = p.Stock,
-                              Images = (from i in _rep.Context.Images
-                                        where i.ProductId == p.ProductId
-                                        select new
-                                        {
-                                            Id = i.ImageId,
-                                            Url = i.Url,
-                                            IsDefault = i.IsDefault
-                                        }).ToList(),
-                              DateCreated = p.DateCreated
-                          };
-
-            var offset = (Page - 1) * Size;
-            var total = product.Count();
-            int totalpage = (total % Size) == 0 ? (total / Size) : (int)((total / Size) + 1);
-            var data = product.OrderBy(x => x.Id).Skip(offset).Take(Size).ToList();
-            var res = new
-            {
-                Data = data,
-                TotalRecord = total,
-                TotalPage = totalpage,
-                Page = Page,
-                Size = Size
+               Name = request.Name,
+               Description = request.Description,
+               Price = request.Price,
+               Detail = request.Detail,
+               Stock = request.Stock,
+               ViewCount = request.ViewCount,
+               Slug = request.Slug,
+               DateCreated = DateTime.Now
             };
 
-            return res;
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+            return product.ProductId;
         }
 
-        public object SearchProductPaging(string Keyword, int Page, int Size)
+        public async Task<bool> Delete(int id)
         {
-            var product = from p in _rep.Context.Products
-                          where p.Name.Contains(Keyword)
-                          select new
-                          {
-                              Id = p.ProductId,
-                              Name = p.Name,
-                              Categories = (from c in _rep.Context.Categories
-                                            join pc in _rep.Context.ProductCategories on c.CategoryId equals pc.CategoryId
-                                            where c.CategoryId == pc.CategoryId && p.ProductId == pc.ProductId
-                                            select new
-                                            {
-                                                Name = c.Name
-                                            }).FirstOrDefault(),
-                              Description = p.Description,
-                              Price = p.Price,
-                              Detail = p.Detail,
-                              Stock = p.Stock,
-                              Images = (from i in _rep.Context.Images
-                                        where i.ProductId == p.ProductId
-                                        select new
-                                        {
-                                            Id = i.ImageId,
-                                            Url = i.Url,
-                                            IsDefault = i.IsDefault
-                                        }).ToList(),
-                              DateCreated = p.DateCreated
-                          };
-
-            var offset = (Page - 1) * Size;
-            var total = product.Count();
-            int totalpage = (total % Size) == 0 ? (total / Size) : (int)((total / Size) + 1);
-            var data = product.OrderBy(x => x.Id).Skip(offset).Take(Size).ToList();
-            var res = new
+            var product = await _context.Products.FindAsync(id);
+            var images = _context.Images.Where(x => x.ProductId == id);
+            var categories = _context.ProductCategories.Where(x => x.ProductId == id);
+            foreach (var image in images)
             {
-                Data = data,
-                TotalRecord = total,
-                TotalPage = totalpage,
-                Page = Page,
-                Size = Size
-            };
-
-            return res;
-        }
-
-        public SingleRsp CreateProduct(ProductCreateReq pro)
-        {
-            var res = new SingleRsp();
-            Product product = new Product();
-            product.Name = pro.Name;
-            product.Price = pro.Price;
-            product.Description = pro.Description;
-            product.Detail = pro.Detail;
-            product.Stock = pro.Stock;
-            product.Slug = pro.Slug;
-            product.DateCreated = DateTime.Now;
-            res = _rep.CreateProduct(product);
-            return res;
-        }
-
-        public SingleRsp UpdateProduct(ProductUpdateReq pro)
-        {
-            var res = new SingleRsp();
-            Product product = new Product();
-            product.ProductId = pro.ProductId;
-            product.Name = pro.Name;
-            product.Price = pro.Price;
-            product.Description = pro.Description;
-            product.Detail = pro.Detail;
-            product.Stock = pro.Stock;
-            res = _rep.CreateProduct(product);
-            return res;
-        }
-
-        public bool RemoveProduct(int Id)
-        {
-            Product pro = _rep.Context.Products.FirstOrDefault(x => x.ProductId == Id);
-            if (pro == null) return false;
-            var images = _rep.Context.Images.Where(i => i.ProductId == Id);
-            foreach (var image in images.ToList())
-            {
-                _rep.Context.Images.Remove(image);
+                _context.Images.Remove(image);
             }
-            _rep.Context.Products.Remove(pro);
-            _rep.Context.SaveChanges();
+
+            foreach (var category in categories)
+            {
+                _context.ProductCategories.Remove(category);
+            }
+
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
             return true;
         }
 
+        
 
+        public async Task<List<ProductViewModel>> GetAll()
+        {
+            var query = from p in _context.Products
+                             //List Categories
+                         let categories = (from pc in _context.ProductCategories
+                                           join c in _context.Categories on pc.CategoryId equals c.CategoryId
+                                           where p.ProductId == pc.ProductId
+                                           select c.Name).ToList()
+                         //List Images
+                         let images = (from i in _context.Images
+                                       where p.ProductId == i.ProductId
+                                       select i.Url).ToList()
 
+                         select new
+                         {
+                             p,
+                             categories,
+                             images
+                         };
+            var data = await query.Select(x => new ProductViewModel()
+            {
+                ProductId = x.p.ProductId,
+                Name = x.p.Name,
+                Description = x.p.Description,
+                Price = x.p.Price,
+                Detail = x.p.Detail,
+                Stock = x.p.Stock,
+                ViewCount = x.p.ViewCount,
+                Categories = x.categories,
+                Images = x.images
+            }).ToListAsync();
+            return data;
+        }
 
-        #endregion
-        //===========================================================
+        public async Task<PagedResult<ProductViewModel>> GetAllPaging(int Page, int Size)
+        {
+            var query = (from p in _context.Products
+                            //List Categories
+                        let categories = (from pc in _context.ProductCategories
+                                          join c in _context.Categories on pc.CategoryId equals c.CategoryId
+                                          where p.ProductId == pc.ProductId
+                                          select c.Name).ToList()
+                        //List Images
+                        let images = (from i in _context.Images
+                                      where p.ProductId == i.ProductId
+                                      select i.Url).ToList()
+                        select new
+                        {
+                            p,
+                            categories,
+                            images
+                        });
+
+            var data = query.Select(x => new ProductViewModel()
+            {
+                ProductId = x.p.ProductId,
+                Name = x.p.Name,
+                Description = x.p.Description,
+                Price = x.p.Price,
+                Detail = x.p.Detail,
+                Stock = x.p.Stock,
+                ViewCount = x.p.ViewCount,
+                Categories = x.categories,
+                Images = x.images
+            });
+            var DataPaging = await data.Skip((Page - 1) * Size)
+                .Take(Size).ToListAsync();
+
+            int totalRow = DataPaging.Count();
+
+            var pagedResult = new PagedResult<ProductViewModel>()
+            {
+                TotalRecords = totalRow,
+                PageSize = Size,
+                PageIndex = Page,
+                Items = DataPaging
+            };
+            return pagedResult;
+        }
+
+        public async Task<ProductViewModel> GetById(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+
+            var categories = await (from pc in _context.ProductCategories
+                              join c in _context.Categories on pc.CategoryId equals c.CategoryId
+                              where id == pc.ProductId
+                              select c.Name).ToListAsync();
+
+            var images = await (from i in _context.Images
+                          where id == i.ProductId
+                          select i.Url).ToListAsync();
+
+            var data = new ProductViewModel()
+            {
+                ProductId = product.ProductId,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                Detail = product.Detail,
+                Stock = product.Stock,
+                ViewCount = product.ViewCount,
+                Categories = categories,
+                Images = images
+            };
+            return data;
+        }
+
+        public async Task<bool> Update(ProductUpdateReq request)
+        {
+            var product = await _context.Products.FindAsync(request.ProductId);
+            if (product == null) throw new EShopException($"Cannot find a Product: {request.ProductId}");
+            product.Name = request.Name;
+            product.Description = request.Description;
+            product.Price = request.Price;
+            product.Detail = request.Detail;
+
+            _context.Products.Update(product);
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace EShop_DotNetCore.BLL.EntitiesSvc
 {
-    public class UsersSvc : IUsersSvc
+    public class UsersSvc : COMMON.IEntitesSvc.IUsersSvc
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;

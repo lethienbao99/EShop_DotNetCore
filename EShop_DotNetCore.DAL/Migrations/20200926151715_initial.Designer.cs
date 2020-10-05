@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EShop_DotNetCore.DAL.Migrations
 {
     [DbContext(typeof(EShopDBContext))]
-    [Migration("20200906143254_CreateIdentityDB")]
-    partial class CreateIdentityDB
+    [Migration("20200926151715_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,6 +83,16 @@ namespace EShop_DotNetCore.DAL.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ee976566-d4be-407b-96d4-5c69da8806a8"),
+                            ConcurrencyStamp = "7d9f51f1-92bf-46b1-9afb-288644fe6330",
+                            Description = "Administrator role",
+                            Name = "admin",
+                            NormalizedName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.AppUser", b =>
@@ -159,6 +169,26 @@ namespace EShop_DotNetCore.DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fd3bc079-8c61-4ff2-a5b7-278a58ec5273"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "271b5cbc-889d-4a51-b6b7-2eb1c4851d6b",
+                            Email = "lethienbao3012@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Le",
+                            LastName = "Bao",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "tedu.international@gmail.com",
+                            NormalizedUserName = "admin",
+                            PasswordHash = "AQAAAAEAACcQAAAAENxLfNpTh+D8DHDLdISFQubrp0/+F45Ug3yQj3O7ZaHyF1iC78Yi6OV6aVhJSrWuag==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Cart", b =>
@@ -188,6 +218,8 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.HasKey("CartId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Carts");
                 });
@@ -311,6 +343,8 @@ namespace EShop_DotNetCore.DAL.Migrations
 
                     b.HasKey("OrderId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Orders");
                 });
 
@@ -378,7 +412,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 1,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 32, 53, 908, DateTimeKind.Local).AddTicks(835),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 377, DateTimeKind.Local).AddTicks(9036),
                             Description = "",
                             Detail = "best TV",
                             Name = "TV",
@@ -390,7 +424,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 2,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 32, 53, 909, DateTimeKind.Local).AddTicks(4504),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6517),
                             Description = "",
                             Detail = "best mircowave",
                             Name = "Microwave",
@@ -402,7 +436,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 3,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 32, 53, 909, DateTimeKind.Local).AddTicks(4592),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6727),
                             Description = "",
                             Detail = "best the android smartphone from samsung",
                             Name = "Samsung Note 20 Ultra",
@@ -414,7 +448,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 4,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 32, 53, 909, DateTimeKind.Local).AddTicks(4595),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6733),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -426,7 +460,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 5,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 32, 53, 909, DateTimeKind.Local).AddTicks(4597),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6736),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -438,7 +472,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 6,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 32, 53, 909, DateTimeKind.Local).AddTicks(4599),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6738),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -450,7 +484,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 7,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 32, 53, 909, DateTimeKind.Local).AddTicks(4601),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6740),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -557,6 +591,8 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.Property<int>("TransactionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Amount")
@@ -583,10 +619,12 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.Property<DateTime>("TransactionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("user_id")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("TransactionId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
                 });
@@ -671,6 +709,13 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("fd3bc079-8c61-4ff2-a5b7-278a58ec5273"),
+                            RoleId = new Guid("ee976566-d4be-407b-96d4-5c69da8806a8")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -699,6 +744,12 @@ namespace EShop_DotNetCore.DAL.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EShop_DotNetCore.DAL.Models.AppUser", "AppUser")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Image", b =>
@@ -706,6 +757,15 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.HasOne("EShop_DotNetCore.DAL.Models.Product", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Order", b =>
+                {
+                    b.HasOne("EShop_DotNetCore.DAL.Models.AppUser", "AppUser")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -736,6 +796,15 @@ namespace EShop_DotNetCore.DAL.Migrations
                     b.HasOne("EShop_DotNetCore.DAL.Models.Product", "Product")
                         .WithMany("ProductCategories")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EShop_DotNetCore.DAL.Models.Transaction", b =>
+                {
+                    b.HasOne("EShop_DotNetCore.DAL.Models.AppUser", "AppUser")
+                        .WithMany("Transactions")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

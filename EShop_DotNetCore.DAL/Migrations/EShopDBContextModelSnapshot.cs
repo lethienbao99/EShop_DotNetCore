@@ -86,7 +86,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             Id = new Guid("ee976566-d4be-407b-96d4-5c69da8806a8"),
-                            ConcurrencyStamp = "1ba34de3-bfa8-4ec3-96dc-286129fcc2c6",
+                            ConcurrencyStamp = "7d9f51f1-92bf-46b1-9afb-288644fe6330",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -173,7 +173,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         {
                             Id = new Guid("fd3bc079-8c61-4ff2-a5b7-278a58ec5273"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2fa9028b-0305-4ebb-bd97-ce7c1d07a0c2",
+                            ConcurrencyStamp = "271b5cbc-889d-4a51-b6b7-2eb1c4851d6b",
                             Email = "lethienbao3012@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Le",
@@ -181,7 +181,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "tedu.international@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG1WTFXv93aZzNxZtLZ+FLwhVNJV7uQvib7fUTHdzGD0dn9OBd8SPDIiYoeDMI/obg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENxLfNpTh+D8DHDLdISFQubrp0/+F45Ug3yQj3O7ZaHyF1iC78Yi6OV6aVhJSrWuag==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -410,7 +410,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 1,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 62, DateTimeKind.Local).AddTicks(4391),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 377, DateTimeKind.Local).AddTicks(9036),
                             Description = "",
                             Detail = "best TV",
                             Name = "TV",
@@ -422,7 +422,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 2,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8213),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6517),
                             Description = "",
                             Detail = "best mircowave",
                             Name = "Microwave",
@@ -434,7 +434,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 3,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8298),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6727),
                             Description = "",
                             Detail = "best the android smartphone from samsung",
                             Name = "Samsung Note 20 Ultra",
@@ -446,7 +446,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 4,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8302),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6733),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -458,7 +458,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 5,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8304),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6736),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -470,7 +470,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 6,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8306),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6738),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",
@@ -482,7 +482,7 @@ namespace EShop_DotNetCore.DAL.Migrations
                         new
                         {
                             ProductId = 7,
-                            DateCreated = new DateTime(2020, 9, 6, 21, 51, 43, 63, DateTimeKind.Local).AddTicks(8308),
+                            DateCreated = new DateTime(2020, 9, 26, 22, 17, 15, 379, DateTimeKind.Local).AddTicks(6740),
                             Description = "",
                             Detail = "best the android smartphone from OnePlus",
                             Name = "OnePlus 8 Pro 5G",

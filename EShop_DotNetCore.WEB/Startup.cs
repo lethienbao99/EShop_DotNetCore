@@ -50,6 +50,7 @@ namespace EShop_DotNetCore.WEB
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddTransient<IUsersSvc, UsersSvc>();
+            services.AddTransient<IProductSvc, ProductsSvc>();
             services.AddSingleton<IConfiguration>(Configuration);
 
             #region -- Swagger --            
@@ -95,7 +96,7 @@ namespace EShop_DotNetCore.WEB
                 c.SwaggerDoc("v2", inf2);
 
                 //Authorization 
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+/*                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorrization header using Bearer scheme. \r\n\r\n
                      Enter 'Bearer' [space] and then your token in the text input below.
@@ -122,10 +123,10 @@ namespace EShop_DotNetCore.WEB
                         },
                         new List<string>()
                     }
-                });
+                });*/
             });
 
-                string issuer = Configuration.GetValue<string>("Tokens:Issuer");
+              /*  string issuer = Configuration.GetValue<string>("Tokens:Issuer");
                 string signingKey = Configuration.GetValue<string>("Tokens:Key");
                 byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);
                 services.AddAuthentication(opt =>
@@ -148,7 +149,7 @@ namespace EShop_DotNetCore.WEB
                     ClockSkew = System.TimeSpan.Zero,
                     IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
                 };
-            });
+            });*/
 
          
             #endregion
