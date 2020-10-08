@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace EShop_DotNetCore.DAL.EF
 {
+    //dsd
     class EShopDbContextFactory : IDesignTimeDbContextFactory<EShopDBContext>
     {
         public EShopDBContext CreateDbContext(string[] args)
